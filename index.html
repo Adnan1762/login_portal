@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #9BBEC8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-container {
+            width: 300px;
+            margin: 100px auto;
+            padding: 100px;
+            background-color: #DDF2FD;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            height: 450px;
+        }
+
+        h2 {
+            text-align: center;
+
+            margin-top: 1px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 3px solid #427D9D;
+            border-radius: 500px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+
+        }
+
+        .signup-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            color: #333;
+        }
+        .g-recaptcha{
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        /* Add this CSS to your existing styles */
+.toggle-password {
+    cursor: pointer;
+}
+
+/* Hide the password by default */
+#password[type="password"] + .fa-eye-slash::before {
+    content: "\f070"; /* Eye icon */
+}
+
+/* Show the password when the input is in focus */
+#password[type="text"] + .fa-eye::before {
+    content: "\f06e"; /* Eye slash icon */
+}
+
+    </style>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <div class="login-container">
+        <h2>User Login</h2>
+        <form action="login.php" method="post">
+
+            <div class="input-group">
+                <label for="email">
+                    Email: <i class="fa-solid fa-envelope fa-beat-fade fa-lg"></i>
+                </label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password: <i class="fa-solid fa-eye-slash toggle-password"></i></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+
+            <div class="g-recaptcha" data-sitekey="Your site key"></div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <div class="signup-link">
+            New User? <a href="signup.html">Register Now</a>
+        </div>
+        <div class="signup-link">
+            Log in as Admin? <a href="adminLogin.html">Admin</a>
+        </div>
+    </div>
+    <div class="footer">
+        © Copyright 2023. All Rights Reserved.
+    </div>
+
+    <script>
+        const passwordField = document.getElementById("password");
+        const togglePassword = document.querySelector(".toggle-password");
+        const loginForm = document.querySelector("form");
+    
+        loginForm.addEventListener("submit", function(event) {
+            // Check if the reCAPTCHA checkbox is checked
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                // Prevent form submission if reCAPTCHA is not checked
+                event.preventDefault();
+                alert("Please complete the reCAPTCHA verification.");
+            } else {
+                // Proceed with form submission
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+    
+                // Change eye icon based on password visibility
+                if (type === "password") {
+                    togglePassword.innerHTML = '<i class="fa-solid fa-eye toggle-eye"></i>';
+                } else {
+                    togglePassword.innerHTML = '<i class="fa-solid fa-eye-slash toggle-eye"></i>';
+                }
+            }
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>
